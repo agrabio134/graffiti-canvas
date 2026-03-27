@@ -319,7 +319,10 @@ const GraffitiCanvas = () => {
           }}
           onMouseDown={startDraw}
           onMouseMove={draw}
-          onMouseUp={stopDraw}
+          onMouseUp={(e) => {
+            stopDraw();
+            handleCanvasClick(e);
+          }}
           onMouseLeave={stopDraw}
           onTouchStart={startDraw}
           onTouchMove={draw}
