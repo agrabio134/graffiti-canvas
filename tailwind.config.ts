@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         graffiti: ["Permanent Marker", "cursive"],
         hand: ["Patrick Hand", "cursive"],
+        display: ["Bungee Shade", "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,12 +52,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        spray: {
-          blue: "hsl(var(--spray-blue))",
-          pink: "hsl(var(--spray-pink))",
-          green: "hsl(var(--spray-green))",
-          orange: "hsl(var(--spray-orange))",
-          purple: "hsl(var(--spray-purple))",
+        neon: {
+          pink: "hsl(var(--neon-pink))",
+          cyan: "hsl(var(--neon-cyan))",
+          green: "hsl(var(--neon-green))",
+          orange: "hsl(var(--neon-orange))",
+          purple: "hsl(var(--neon-purple))",
+          yellow: "hsl(var(--neon-yellow))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -83,20 +85,10 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "shake": {
-          "0%, 100%": { transform: "rotate(-1deg)" },
-          "50%": { transform: "rotate(1deg)" },
-        },
-        "drip": {
-          "0%": { transform: "translateY(-10px)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "shake": "shake 0.3s ease-in-out infinite",
-        "drip": "drip 0.5s ease-out forwards",
       },
     },
   },
