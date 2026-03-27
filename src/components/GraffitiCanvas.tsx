@@ -80,15 +80,21 @@ const GraffitiCanvas = () => {
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }, []);
 
-  const startDraw = useCallback(
-    (e: React.MouseEvent | React.TouchEvent) => {
+  const handleCanvasClick = useCallback(
+    (e: React.MouseEvent) => {
       if (tool === "text") {
         const pos = getPos(e);
         setTextPos(pos);
-        setShowTextInput(true);
         setTextInput("");
-        return;
+        setShowTextInput(true);
       }
+    },
+    [getPos, tool]
+  );
+
+  const startDraw = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      if (tool === "text") return;
       setIsDrawing(true);
       lastPos.current = getPos(e);
     },
@@ -313,7 +319,10 @@ const GraffitiCanvas = () => {
           }}
           onMouseDown={startDraw}
           onMouseMove={draw}
-          onMouseUp={stopDraw}
+          onMouseUp={(e) => {
+            stopDraw();
+            handleCanvasClick(e);
+          }}
           onMouseLeave={stopDraw}
           onTouchStart={startDraw}
           onTouchMove={draw}
@@ -323,8 +332,9 @@ const GraffitiCanvas = () => {
         {/* Floating text input */}
         {showTextInput && textPos && (
           <div
-            className="absolute"
-            style={{ left: textPos.x, top: textPos.y - fontSize }}
+            className="absolute z-10"
+            style={{ left: textPos.x, top: Math.max(0, textPos.y - fontSize * 0.7) }}
+            onMouseDown={(e) => e.stopPropagation()}
           >
             <input
               ref={textInputRef}
@@ -335,14 +345,14 @@ const GraffitiCanvas = () => {
                 if (e.key === "Enter") placeText();
                 if (e.key === "Escape") setShowTextInput(false);
               }}
-              onBlur={placeText}
+              onBlur={() => setTimeout(placeText, 150)}
               placeholder="Type your tag..."
-              className="border-b-2 border-primary bg-transparent px-1 font-graffiti text-foreground outline-none"
+              className="border-b-2 border-primary bg-card/80 backdrop-blur-sm px-2 py-1 font-graffiti text-foreground outline-none rounded"
               style={{
                 fontFamily: font.value,
-                fontSize: `${fontSize * 0.6}px`,
+                fontSize: `${Math.max(16, fontSize * 0.5)}px`,
                 color: color,
-                minWidth: "120px",
+                minWidth: "150px",
               }}
             />
           </div>
