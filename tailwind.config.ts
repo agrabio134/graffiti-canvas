@@ -15,8 +15,8 @@ export default {
     extend: {
       fontFamily: {
         graffiti: ["Permanent Marker", "cursive"],
+        spray: ["Rubik Spray Paint", "cursive"],
         hand: ["Patrick Hand", "cursive"],
-        display: ["Bungee Shade", "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,13 +52,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        neon: {
-          pink: "hsl(var(--neon-pink))",
-          cyan: "hsl(var(--neon-cyan))",
-          green: "hsl(var(--neon-green))",
-          orange: "hsl(var(--neon-orange))",
-          purple: "hsl(var(--neon-purple))",
-          yellow: "hsl(var(--neon-yellow))",
+        spray: {
+          red: "hsl(var(--spray-red))",
+          blue: "hsl(var(--spray-blue))",
+          green: "hsl(var(--spray-green))",
+          yellow: "hsl(var(--spray-yellow))",
+          pink: "hsl(var(--spray-pink))",
+          purple: "hsl(var(--spray-purple))",
+          orange: "hsl(var(--spray-orange))",
+          cyan: "hsl(var(--spray-cyan))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
