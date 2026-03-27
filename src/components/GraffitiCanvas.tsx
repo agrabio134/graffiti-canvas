@@ -80,15 +80,21 @@ const GraffitiCanvas = () => {
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }, []);
 
-  const startDraw = useCallback(
-    (e: React.MouseEvent | React.TouchEvent) => {
+  const handleCanvasClick = useCallback(
+    (e: React.MouseEvent) => {
       if (tool === "text") {
         const pos = getPos(e);
         setTextPos(pos);
-        setShowTextInput(true);
         setTextInput("");
-        return;
+        setShowTextInput(true);
       }
+    },
+    [getPos, tool]
+  );
+
+  const startDraw = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      if (tool === "text") return;
       setIsDrawing(true);
       lastPos.current = getPos(e);
     },
