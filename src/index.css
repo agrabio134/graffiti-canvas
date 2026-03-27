@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Patrick+Hand&family=Bungee+Shade&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,50 +6,51 @@
 
 @layer base {
   :root {
-    --background: 0 0% 8%;
-    --foreground: 0 0% 95%;
+    --background: 230 30% 8%;
+    --foreground: 60 20% 92%;
 
-    --card: 0 0% 12%;
-    --card-foreground: 0 0% 95%;
+    --card: 230 25% 12%;
+    --card-foreground: 60 20% 92%;
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 230 25% 12%;
+    --popover-foreground: 60 20% 92%;
 
-    --primary: 350 85% 55%;
+    --primary: 280 70% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 160 80% 45%;
+    --secondary: 170 80% 45%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 18%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 230 20% 18%;
+    --muted-foreground: 230 15% 55%;
 
-    --accent: 45 95% 55%;
-    --accent-foreground: 0 0% 8%;
+    --accent: 50 95% 55%;
+    --accent-foreground: 230 30% 8%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 350 85% 55%;
+    --border: 260 20% 22%;
+    --input: 260 20% 22%;
+    --ring: 280 70% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --spray-blue: 210 90% 55%;
-    --spray-pink: 330 85% 60%;
-    --spray-green: 140 75% 50%;
-    --spray-orange: 25 95% 55%;
-    --spray-purple: 280 75% 55%;
+    --neon-pink: 330 90% 60%;
+    --neon-cyan: 180 85% 55%;
+    --neon-green: 140 80% 50%;
+    --neon-orange: 25 95% 55%;
+    --neon-purple: 280 75% 60%;
+    --neon-yellow: 50 95% 55%;
 
-    --sidebar-background: 0 0% 10%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 350 85% 55%;
+    --sidebar-background: 230 25% 10%;
+    --sidebar-foreground: 60 20% 92%;
+    --sidebar-primary: 280 70% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 15%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 350 85% 55%;
+    --sidebar-accent: 230 20% 15%;
+    --sidebar-accent-foreground: 60 20% 92%;
+    --sidebar-border: 260 20% 22%;
+    --sidebar-ring: 280 70% 55%;
   }
 }
 
@@ -73,13 +74,29 @@
     font-family: 'Patrick Hand', cursive;
   }
 
+  .font-display {
+    font-family: 'Bungee Shade', cursive;
+  }
+
   .text-spray {
     background: linear-gradient(
       135deg,
-      hsl(350 85% 55%),
-      hsl(330 85% 60%),
-      hsl(280 75% 55%),
-      hsl(210 90% 55%)
+      hsl(280 75% 60%),
+      hsl(330 90% 60%),
+      hsl(50 95% 55%),
+      hsl(180 85% 55%)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-graffiti-title {
+    background: linear-gradient(
+      180deg,
+      hsl(180 85% 55%) 0%,
+      hsl(280 75% 60%) 50%,
+      hsl(330 90% 60%) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -87,24 +104,52 @@
   }
 
   .brick-bg {
-    background-color: hsl(0 0% 8%);
+    background-color: hsl(230 30% 8%);
     background-image:
-      linear-gradient(to right, hsl(0 0% 15%) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(0 0% 15%) 1px, transparent 1px);
-    background-size: 60px 30px;
-    background-position: 0 0, 30px 15px;
+      linear-gradient(to right, hsl(260 20% 14%) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(260 20% 14%) 1px, transparent 1px);
+    background-size: 64px 32px;
+    background-position: 0 0, 32px 16px;
+  }
+
+  .city-gradient {
+    background: linear-gradient(
+      180deg,
+      hsl(230 40% 12%) 0%,
+      hsl(260 30% 10%) 40%,
+      hsl(230 30% 8%) 100%
+    );
   }
 
   .drip-shadow {
     text-shadow:
-      3px 3px 0 hsl(0 0% 0% / 0.5),
-      0 8px 15px hsl(0 0% 0% / 0.3);
+      4px 4px 0 hsl(0 0% 0% / 0.6),
+      0 10px 20px hsl(280 70% 55% / 0.3);
   }
 
   .neon-glow {
     text-shadow:
-      0 0 10px hsl(350 85% 55% / 0.8),
-      0 0 30px hsl(350 85% 55% / 0.4),
-      0 0 60px hsl(350 85% 55% / 0.2);
+      0 0 10px hsl(280 70% 55% / 0.9),
+      0 0 30px hsl(280 70% 55% / 0.5),
+      0 0 60px hsl(330 90% 60% / 0.3);
+  }
+
+  .neon-glow-cyan {
+    text-shadow:
+      0 0 10px hsl(180 85% 55% / 0.9),
+      0 0 30px hsl(180 85% 55% / 0.5),
+      0 0 60px hsl(180 85% 55% / 0.3);
+  }
+
+  .glow-border {
+    box-shadow:
+      0 0 15px hsl(280 70% 55% / 0.3),
+      inset 0 0 15px hsl(280 70% 55% / 0.1);
+  }
+
+  .card-glow {
+    box-shadow:
+      0 4px 30px hsl(280 70% 55% / 0.15),
+      0 0 1px hsl(280 70% 55% / 0.3);
   }
 }
