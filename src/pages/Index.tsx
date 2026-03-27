@@ -72,7 +72,7 @@ const Index = () => {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <h1 className="font-spray text-6xl text-spray-gradient drip-text md:text-8xl lg:text-9xl leading-tight">
+          <h1 className="font-spray text-3xl text-spray-gradient drip-text sm:text-5xl md:text-8xl lg:text-9xl leading-tight">
             GRAFFITIFICATION
           </h1>
           <p className="mt-3 font-hand text-xl text-muted-foreground md:text-2xl">
