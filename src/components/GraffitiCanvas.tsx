@@ -2,15 +2,15 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { Eraser, Download, Trash2, Minus, Plus } from "lucide-react";
 
 const COLORS = [
-  "hsl(350, 85%, 55%)",
-  "hsl(210, 90%, 55%)",
-  "hsl(140, 75%, 50%)",
-  "hsl(45, 95%, 55%)",
-  "hsl(330, 85%, 60%)",
-  "hsl(280, 75%, 55%)",
-  "hsl(25, 95%, 55%)",
-  "hsl(0, 0%, 100%)",
-  "hsl(0, 0%, 0%)",
+  "hsl(350, 80%, 50%)",
+  "hsl(220, 80%, 50%)",
+  "hsl(150, 70%, 40%)",
+  "hsl(50, 90%, 50%)",
+  "hsl(330, 80%, 55%)",
+  "hsl(275, 70%, 50%)",
+  "hsl(25, 90%, 52%)",
+  "hsl(185, 75%, 45%)",
+  "hsl(0, 0%, 15%)",
 ];
 
 const GraffitiCanvas = () => {
@@ -20,6 +20,8 @@ const GraffitiCanvas = () => {
   const [brushSize, setBrushSize] = useState(8);
   const [isEraser, setIsEraser] = useState(false);
   const lastPos = useRef<{ x: number; y: number } | null>(null);
+
+  const WALL_COLOR = "hsl(35, 20%, 78%)";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -73,13 +75,13 @@ const GraffitiCanvas = () => {
       ctx.beginPath();
       ctx.moveTo(lastPos.current.x, lastPos.current.y);
       ctx.lineTo(pos.x, pos.y);
-      ctx.strokeStyle = isEraser ? "hsl(0, 0%, 8%)" : color;
+      ctx.strokeStyle = isEraser ? WALL_COLOR : color;
       ctx.lineWidth = brushSize;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
       if (!isEraser) {
-        ctx.shadowBlur = brushSize * 0.5;
+        ctx.shadowBlur = brushSize * 0.4;
         ctx.shadowColor = color;
       } else {
         ctx.shadowBlur = 0;
@@ -89,7 +91,7 @@ const GraffitiCanvas = () => {
       ctx.shadowBlur = 0;
       lastPos.current = pos;
     },
-    [isDrawing, color, brushSize, isEraser, getPos]
+    [isDrawing, color, brushSize, isEraser, getPos, WALL_COLOR]
   );
 
   const stopDraw = useCallback(() => {
@@ -115,9 +117,9 @@ const GraffitiCanvas = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-3">
+      <div className="flex flex-wrap items-center gap-3 splatter-border bg-card p-3 paint-shadow">
         {/* Colors */}
         <div className="flex items-center gap-1.5">
           {COLORS.map((c) => (
@@ -128,7 +130,9 @@ const GraffitiCanvas = () => {
                 setIsEraser(false);
               }}
               className={`h-7 w-7 rounded-full border-2 transition-transform hover:scale-110 ${
-                color === c && !isEraser ? "border-foreground scale-125" : "border-muted"
+                color === c && !isEraser
+                  ? "border-foreground scale-125 ring-2 ring-foreground/20"
+                  : "border-foreground/10"
               }`}
               style={{ backgroundColor: c }}
             />
@@ -138,15 +142,15 @@ const GraffitiCanvas = () => {
         <div className="h-6 w-px bg-border" />
 
         {/* Brush size */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
           <button
             onClick={() => setBrushSize(Math.max(2, brushSize - 2))}
             className="rounded bg-muted p-1 text-foreground hover:bg-border"
           >
             <Minus className="h-4 w-4" />
           </button>
-          <span className="w-8 text-center text-sm text-muted-foreground font-hand">
-            {brushSize}
+          <span className="w-8 text-center font-hand text-sm text-muted-foreground">
+            {brushSize}px
           </span>
           <button
             onClick={() => setBrushSize(Math.min(40, brushSize + 2))}
@@ -162,31 +166,36 @@ const GraffitiCanvas = () => {
         <button
           onClick={() => setIsEraser(!isEraser)}
           className={`rounded p-1.5 transition-colors ${
-            isEraser ? "bg-primary text-primary-foreground" : "bg-muted text-foreground hover:bg-border"
+            isEraser
+              ? "bg-primary text-primary-foreground"
+              : "bg-muted text-foreground hover:bg-border"
           }`}
+          title="Eraser"
         >
           <Eraser className="h-4 w-4" />
         </button>
         <button
           onClick={clearCanvas}
-          className="rounded bg-muted p-1.5 text-foreground hover:bg-destructive hover:text-destructive-foreground transition-colors"
+          className="rounded bg-muted p-1.5 text-foreground transition-colors hover:bg-destructive hover:text-destructive-foreground"
+          title="Clear wall"
         >
           <Trash2 className="h-4 w-4" />
         </button>
         <button
           onClick={saveCanvas}
-          className="rounded bg-secondary p-1.5 text-secondary-foreground hover:opacity-80 transition-opacity"
+          className="rounded bg-secondary p-1.5 text-secondary-foreground transition-opacity hover:opacity-80"
+          title="Save art"
         >
           <Download className="h-4 w-4" />
         </button>
       </div>
 
-      {/* Canvas */}
-      <div className="relative overflow-hidden rounded-lg border-2 border-border">
+      {/* Canvas - concrete wall look */}
+      <div className="relative overflow-hidden rounded-sm paint-shadow" style={{ border: "3px solid hsl(35, 15%, 70%)" }}>
         <canvas
           ref={canvasRef}
-          className="h-[400px] w-full cursor-crosshair touch-none"
-          style={{ backgroundColor: "hsl(0, 0%, 8%)" }}
+          className="h-[420px] w-full cursor-crosshair touch-none"
+          style={{ backgroundColor: WALL_COLOR }}
           onMouseDown={startDraw}
           onMouseMove={draw}
           onMouseUp={stopDraw}
@@ -195,11 +204,8 @@ const GraffitiCanvas = () => {
           onTouchMove={draw}
           onTouchEnd={stopDraw}
         />
-        {/* Corner graffiti marks */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-2 top-2 font-graffiti text-xs text-muted-foreground/30">
-            TAG HERE →
-          </div>
+        <div className="pointer-events-none absolute bottom-3 right-3 font-spray text-sm text-foreground/10">
+          SPRAY HERE
         </div>
       </div>
     </div>
